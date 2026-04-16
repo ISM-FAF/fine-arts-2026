@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Illinois Fine Arts Festival 2026</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #121c30;
+      --panel: rgba(255,255,255,0.08);
+      --panel-strong: rgba(255,255,255,0.12);
+      --text: #f5f7fb;
+      --muted: #c9d4e8;
+      --accent: #78c0ff;
+      --accent-2: #caa7ff;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 18px 50px rgba(0,0,0,0.28);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(120,192,255,0.20), transparent 34%),
+        radial-gradient(circle at top right, rgba(202,167,255,0.18), transparent 30%),
+        linear-gradient(180deg, #0a1120 0%, #0c1526 42%, #101a2e 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(8, 13, 24, 0.68);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 0.98rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .hero {
+      padding: 72px 0 32px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 44px;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)),
+        linear-gradient(135deg, rgba(120,192,255,0.18), rgba(202,167,255,0.14));
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(6px);
+      opacity: 0.75;
+    }
+
+    .hero-card::before {
+      width: 280px;
+      height: 280px;
+      right: -70px;
+      top: -80px;
+      background: radial-gradient(circle, rgba(120,192,255,0.42), transparent 68%);
+    }
+
+    .hero-card::after {
+      width: 240px;
+      height: 240px;
+      left: -80px;
+      bottom: -100px;
+      background: radial-gradient(circle, rgba(202,167,255,0.32), transparent 65%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 6vw, 4.4rem);
+      line-height: 0.98;
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
+      max-width: 760px;
+    }
+
+    .subhead {
+      color: var(--muted);
+      max-width: 700px;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, opacity 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #98d6ff);
+      color: #0a1322;
+      box-shadow: 0 8px 24px rgba(120,192,255,0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .meta-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    section {
+      padding: 18px 0 28px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.tools {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .card .tag {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .link-arrow {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .disabled {
+      opacity: 0.84;
+    }
+
+    .disabled .card-footer .link-arrow {
+      color: #ffd8a8;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #ffdcb6;
+      font-size: 0.92rem;
+    }
+
+    .info-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .info-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .room-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .room-list {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .room-list li {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .footer {
+      padding: 22px 0 48px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+
+    @media (max-width: 900px) {
+      .hero-card { padding: 28px; }
+      .hero-meta,
+      .grid.tools,
+      .info-grid,
+      .room-grid { grid-template-columns: 1fr; }
+      .footer-box,
+      .section-head,
+      .topbar-inner { display: block; }
+      .nav { margin-top: 10px; }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(calc(100% - 22px), var(--max)); }
+      .hero { padding-top: 26px; }
+      .hero-card { border-radius: 24px; padding: 22px; }
+      .btn { width: 100%; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // =====================================================
+    // QUICK EDIT SETTINGS
+    // Replace the placeholder links below with your real URLs.
+    // To make the Results button go live on Saturday, either:
+    // 1) change resultsEnabled to true, or
+    // 2) change resultsReleaseDate to the date/time you want.
+    // =====================================================
+    const siteConfig = {
+      scheduleUrl: '#',
+      resultsUrl: '#',
+      mapsUrl: '#',
+      rulebookUrl: '#',
+      resultsEnabled: false,
+      resultsReleaseDate: '2026-04-18T08:00:00-05:00',
+      resultsMessage: 'Results will be posted on Saturday.',
+      contactEmail: 'finearts@idcag.org'
+    };
+  </script>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Illinois Fine Arts Festival 2026</div>
+      <nav class="nav">
+        <a href="#tools">Tools</a>
+        <a href="#maps-rules">Maps & Rule Book</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#info">Important Info</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="eyebrow">Fine Arts Festival - Event Hub</div>
+          <h1>Discover. Develop. Deploy.</h1>
+          <div class="subhead">
+            Welcome to the Illinois Fine Arts Festival hub. Use the tools below to access the presentation schedule, results, facility maps, the national rule book, and room-by-room category information.
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" id="heroScheduleBtn" href="#" target="_blank" rel="noopener">Open Presentation Schedule</a>
+            <a class="btn btn-secondary" href="#rooms">View Categories by Room</a>
+          </div>
+          <div class="hero-meta">
+            <div class="meta-item">
+              <div class="meta-label">Location</div>
+              <div class="meta-value">Lake Williamson Christian Center<br />Carlinville, Illinois</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Festival Date</div>
+              <div class="meta-value">Saturday, April 18, 2026</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Celebration Service</div>
+              <div class="meta-value">6:30 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Festival Tools</h2>
+            <p>The most-used links are front and center so students, families, coordinators, and guests can get where they need to go quickly.</p>
+          </div>
+        </div>
+        <div class="grid tools">
+          <a class="card" id="scheduleCard" href="#" target="_blank" rel="noopener">
+            <div class="tag">Tool</div>
+            <h3>Presentation Schedule</h3>
+            <p>Search by participant, group, church, city, or category to find presentation times and locations quickly.</p>
+            <div class="card-footer">
+              <span>Open tool</span>
+              <span class="link-arrow">→</span>
+            </div>
+          </a>
+
+          <a class="card disabled" id="resultsCard" href="#" target="_blank" rel="noopener" aria-disabled="true">
+            <div class="tag">Tool</div>
+            <h3>Results</h3>
+            <p>View results and placements once they are released for the festival.</p>
+            <div class="note" id="resultsNote">Results will be posted on Saturday.</div>
+            <div class="card-footer">
+              <span id="resultsFooterLabel">Not available yet</span>
+              <span class="link-arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="maps-rules">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Maps & Resources</h2>
+            <p>Use these links to navigate the facility and reference national Fine Arts guidelines.</p>
+          </div>
+        </div>
+        <div class="grid info-grid">
+          <a class="card" id="mapsCard" href="#" target="_blank" rel="noopener">
+            <div class="tag">Resource</div>
+            <h3>Facility Maps</h3>
+            <p>View the venue layout, presentation areas, and key locations to help you move through the festival with confidence.</p>
+            <div class="card-footer">
+              <span>Open maps</span>
+              <span class="link-arrow">→</span>
+            </div>
+          </a>
+
+          <a class="card" id="rulebookCard" href="#" target="_blank" rel="noopener">
+            <div class="tag">Resource</div>
+            <h3>National Rule Book</h3>
+            <p>Review national Fine Arts guidelines and category requirements before your presentation or while supporting participants onsite.</p>
+            <div class="card-footer">
+              <span>Open rule book</span>
+              <span class="link-arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rooms">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Categories by Room</h2>
+            <p>Update this section with the categories assigned to each room so people can quickly understand what kinds of presentations are happening where.</p>
+          </div>
+        </div>
+        <div class="grid room-grid">
+          <div class="card">
+            <div class="tag">Room A</div>
+            <h3>Auditorium</h3>
+            <p class="small">Replace the sample list below with the final categories scheduled in this room.</p>
+            <ul class="room-list">
+              <li>Human Video</li>
+              <li>Drama</li>
+              <li>Short Sermon</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="tag">Room B</div>
+            <h3>Sample Room</h3>
+            <p class="small">Use this format for each room or presentation area across the campus.</p>
+            <ul class="room-list">
+              <li>Vocal Solo</li>
+              <li>Spoken Word</li>
+              <li>Worship Team</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="tag">Room C</div>
+            <h3>Sample Room</h3>
+            <p class="small">You can keep each item broad or split Jr. and Sr. if that will help your attendees.</p>
+            <ul class="room-list">
+              <li>Art Display</li>
+              <li>Photography</li>
+              <li>Writing</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="tag">Room D</div>
+            <h3>Sample Room</h3>
+            <p class="small">This section is intentionally easy to edit directly in the HTML.</p>
+            <ul class="room-list">
+              <li>Percussion</li>
+              <li>Rap Solo</li>
+              <li>Instrumental Solo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="info">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Important Festival Information</h2>
+            <p>Use this section for concise reminders that help everyone navigate the day smoothly.</p>
+          </div>
+        </div>
+        <div class="grid info-grid">
+          <div class="card">
+            <div class="tag">Need to Know</div>
+            <h3>Helpful Reminders</h3>
+            <ul class="info-list">
+              <li>Presentation schedules reflect the most up-to-date timing currently available.</li>
+              <li>Please allow extra time to move between buildings and rooms.</li>
+              <li>Plan to remain through the evening for the Celebration Service.</li>
+              <li>Check this page again during the weekend for key updates and links.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="tag">Support</div>
+            <h3>Questions?</h3>
+            <p>If you need assistance during the festival, connect with the Fine Arts Team.</p>
+            <div class="card-footer">
+              <span id="contactEmailText">finearts@idcag.org</span>
+              <a class="link-arrow" id="emailLink" href="mailto:finearts@idcag.org">Email us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-box">
+      <div>Illinois Fine Arts Festival 2026</div>
+      <div>Built for quick onsite access to schedules, maps, results, and resources.</div>
+    </div>
+  </footer>
+
+  <script>
+    function applyLink(id, url) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.href = url || '#';
+    }
+
+    applyLink('heroScheduleBtn', siteConfig.scheduleUrl);
+    applyLink('scheduleCard', siteConfig.scheduleUrl);
+    applyLink('mapsCard', siteConfig.mapsUrl);
+    applyLink('rulebookCard', siteConfig.rulebookUrl);
+
+    const emailLink = document.getElementById('emailLink');
+    const emailText = document.getElementById('contactEmailText');
+    if (emailLink) emailLink.href = `mailto:${siteConfig.contactEmail}`;
+    if (emailText) emailText.textContent = siteConfig.contactEmail;
+
+    const resultsCard = document.getElementById('resultsCard');
+    const resultsNote = document.getElementById('resultsNote');
+    const resultsFooterLabel = document.getElementById('resultsFooterLabel');
+    const releaseTime = new Date(siteConfig.resultsReleaseDate).getTime();
+    const now = Date.now();
+    const shouldEnableResults = siteConfig.resultsEnabled || (Number.isFinite(releaseTime) && now >= releaseTime);
+
+    if (shouldEnableResults) {
+      resultsCard.classList.remove('disabled');
+      resultsCard.setAttribute('aria-disabled', 'false');
+      resultsCard.href = siteConfig.resultsUrl || '#';
+      resultsNote.textContent = 'Results are now available.';
+      resultsFooterLabel.textContent = 'Open tool';
+    } else {
+      resultsCard.addEventListener('click', function (event) {
+        event.preventDefault();
+      });
+      resultsNote.textContent = siteConfig.resultsMessage;
+      resultsFooterLabel.textContent = 'Not available yet';
+    }
+  </script>
+</body>
+</html>
